@@ -1,9 +1,10 @@
 $(document).ready(function() {
   $(".search-button").click(function(){
+
     var searchText = $(".search-box").val();
-    var uri = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=" + searchText + "&callback=?";
+    
     $(".results").html("");
-    $.getJSON(uri, function(json){
+    $.getJSON("https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&exsentences=1&exlimit=max&gsrsearch=" + searchText + "&callback=?", function(json){
       var data = {};
       for (page in json.query.pages){
         data = json.query.pages[page];
@@ -15,7 +16,7 @@ $(document).ready(function() {
             $(".page").html("<h1>"+json.query.pages[pageid].title+"</h1>" + json.query.pages[pageid].extract);
           });
         });
-        $("<p class='title'>" + data.title + "</p>").appendTo(".result-div:last");
+        //$("<p class='title'>" + data.title + "</p>").appendTo(".result-div:last");
         $("<p>" + data.extract + "</p>").appendTo(".result-div:last");
       };
     });
@@ -24,6 +25,7 @@ $(document).ready(function() {
     if (e.which == 13) {
       e.preventDefault();
       $(".search-button").click();
+      $(".results").show();
     }
   });
 });

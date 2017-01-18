@@ -8,7 +8,12 @@ $(document).ready(function() {
       for (page in json.query.pages){
         data = json.query.pages[page];
         $("<div class='result-div' data-pageid='"+ data.pageid +"'></div>").appendTo(".results").click(function(){
-          window.open("https://en.wikipedia.org/?curid=" + this.dataset.pageid);
+          var pageid = this.dataset.pageid;
+          //window.open("https://en.wikipedia.org/?curid=" + this.dataset.pageid);
+          $.getJSON("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&pageids=" + this.dataset.pageid + "&callback=?", function(json){
+            $(".results").hide();
+            $(".page").html("<h1>"+json.query.pages[pageid].title+"</h1>" + json.query.pages[pageid].extract);
+          });
         });
         $("<p class='title'>" + data.title + "</p>").appendTo(".result-div:last");
         $("<p>" + data.extract + "</p>").appendTo(".result-div:last");

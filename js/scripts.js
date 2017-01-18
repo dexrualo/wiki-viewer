@@ -1,15 +1,16 @@
 $(document).ready(function() {
   $(".search-button").click(function(){
     var searchText = $(".search-box").val();
-    var uri = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageimages&generator=search&callback=?&exsentences=1&exlimit=max&exintro=1&piprop=thumbnail&pilimit=max&gsrnamespace=0&gsrsearch=" + searchText;
+    var uri = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=" + searchText + "&callback=?";
     $.getJSON(uri, function(json){
+      var data = {};
       for (page in json.query.pages){
-        console.log(page);
+        data = json.query.pages[page];
         $("<div class='result-div'></div>").appendTo(".results").click(function(){
-          
+          window.open("https://en.wikipedia.org/?curid=" + data.pageid);
         });
-        $("<p class='title'>" + page.title + "</p>").appendTo(".result-div:last");
-        $("<p>" + page.extract + "...</p>").appendTo(".result-div:last");
+        $("<p class='title'>" + data.title + "</p>").appendTo(".result-div:last");
+        $("<p>" + data.extract + "</p>").appendTo(".result-div:last");
       };
     });
   });

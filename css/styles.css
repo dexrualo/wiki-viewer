@@ -1,5 +1,46 @@
 body {
+  background-color: blue;
+  color: #555;
+  display: flex;
+  flex-flow: column nowrap;
   font-family: 'Dosis', sans-serif;
   margin: 0 auto;
   max-width: 50em;
+}
+b,
+h1,
+h2 {
+  color: #333;
+}
+.result-div,
+.page {
+  background-color: #eee;
+  margin: 1em;
+  opacity: 0.8;
+  padding: 1em;
+}
+.result-div {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+.result-div:hover {
+  cursor: pointer;
+}
+.results, .page {
+  display:none;
+}
+.search {
+  text-align: center;
+}
+.thumbnail {
+  float: left;
+  margin-right: 1em;
+}
+.back-button {
+  background-color: #eee;
+  border: none;
+}
+.back-button:hover {
+  cursor: pointer;
 }

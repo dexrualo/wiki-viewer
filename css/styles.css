@@ -4,6 +4,7 @@ body {
   display: flex;
   flex-flow: column nowrap;
   font-family: 'Dosis', sans-serif;
+  justify-content: center;
   margin: 0 auto;
   max-width: 50em;
 }
@@ -31,6 +32,11 @@ h2 {
   display:none;
 }
 .search {
+  align-items: baseline;
+  display: flex;
+  font-size: 2em;
+  justify-content: space-around;
+  margin-top: 1em;
   text-align: center;
 }
 .thumbnail {
@@ -40,7 +46,11 @@ h2 {
 .back-button {
   background-color: #eee;
   border: none;
+  font-size: 1.2em;
 }
 .back-button:hover {
   cursor: pointer;
+}
+.logo {
+  color: #eee;
 }

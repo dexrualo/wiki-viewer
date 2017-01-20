@@ -9,7 +9,7 @@ $(document).ready(function() {
       $(".page").hide("fast");
     $(".results").html("").show("fast");
 
-    $.getJSON("https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&exsentences=1&exlimit=max&gsrsearch=" + searchText + "&callback=?", function(json){
+    $.getJSON("https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=extracts&exintro&exsentences=1&exlimit=max&gsrsearch=" + searchText + "&callback=?", function(json){
       var data = {};
       for (page in json.query.pages){
         data = json.query.pages[page];
@@ -27,8 +27,6 @@ $(document).ready(function() {
             });
           });
         });
-        if (data.thumbnail)
-          $("<img class='thumbnail' src='" + data.thumbnail.source + "'/>").appendTo(".result-div:last");
         $("<div>" + data.extract + "</div>").appendTo(".result-div:last");
       };
     });
@@ -38,5 +36,16 @@ $(document).ready(function() {
       e.preventDefault();
       $(".search-button").click();
     }
+  });
+  $(".random-button").click(function(){
+    if ($(".results").css("display") == "block")
+      $(".results").hide("fast");
+    if ($(".page").css("display") == "block")
+      $(".page").hide("fast");
+
+    $.getJSON("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&generator=random&grnnamespace=0&callback=?",function(json){
+      var data = json.query.pages[Object.keys(json.query.pages)[0]];
+      $(".page").html("<h1>" + data.title + "</h1>" + data.extract).show("fast");
+    });
   });
 });
